@@ -1,9 +1,9 @@
 {
   "name": "static-web",
   "version": "1.0.0",
-  "description": "",
+  "description": "For starting web project by pug, stylus and typescript via webpack",
   "main": "index.js",
-  "repository": "",
+  "repository": "https://github.com/kazhs/static-web.git",
   "scripts": {
     "start": "webpack serve",
     "build": "rm -rf ./dist && webpack",
