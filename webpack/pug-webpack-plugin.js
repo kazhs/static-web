@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const root = require('./../config/helper').root;
 
-const BASE_TITLE = 'STATIC WEB';
+const BASE_TITLE = ' | STATIC WEB';
 
 const title = (_title = '') => _title + BASE_TITLE;
 
