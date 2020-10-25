@@ -1,3 +1,3 @@
-import './../stylus/index';
+import './../stylus';
 
 console.log('Main');

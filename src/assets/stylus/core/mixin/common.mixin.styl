@@ -1,0 +1,38 @@
+colors($bg, $color)
+  if !$color
+    $color = $bg
+  background: $bg
+  color: $color
+
+
+fonts($fontSize, $fontWeight)
+  font-size: $fontSize
+  font-weight: $fontWeight
+
+
+max-size($maxWidth, $maxHeight=null)
+  if $maxHeight == null
+    $maxHeight = $maxWidth
+  max-height: $maxHeight
+  max-width: $maxWidth
+
+
+min-size($minWidth, $minHeight=null)
+  if $minHeight == null
+    $minHeight = $minWidth
+  min-height: $minHeight
+  min-width: $minWidth
+
+
+bg-img($url, $bgSize=contain)
+  background-image: 'url(%s)' % $url
+  background-position: center
+  background-repeat: no-repeat
+  background-size: $bgSize
+
+
+img-container($objectFit=contain)
+  > picture > img
+  > img
+    object-fit: $objectFit
+    size: 100%

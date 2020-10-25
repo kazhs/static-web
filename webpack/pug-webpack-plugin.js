@@ -1,13 +1,13 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const root = require('./../config/helper').root;
 
-const BASE_TITLE = ' | STATIC WEB';
+const BASE_TITLE = 'STATIC WEB';
 
-const title = (_title = '') => _title + BASE_TITLE;
+const title = (_title = null) => _title ? `${_title} | ${BASE_TITLE}` : BASE_TITLE;
 
 const template = name => root('src', 'template', `${name}.pug`);
 
-module.exports = (mode, context) => {
+module.exports = (mode, context = '') => {
 
   const isProdEnv = mode === 'production';
   const link = (href = '') => `${context}/${href}`;

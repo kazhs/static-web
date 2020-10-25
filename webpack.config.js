@@ -7,7 +7,7 @@ const root = require('./config/helper').root;
 module.exports = (_, argv) => {
 
   const mode = argv.mode || 'development';
-  const context = argv.env === 'staging' ? '/dev' : '';
+  const context = '';
   const assetPath = `${context}/assets`;
   const isDev = mode === 'development';
   const isLocal = isDev && !argv.env;
@@ -18,7 +18,7 @@ module.exports = (_, argv) => {
     devtool,
     entry: root('src', 'assets', 'ts', 'main.ts'),
     output: {
-      filename: 'script/[name].[hash].js',
+      filename: 'script/[name].[fullhash].js',
     },
     resolve: {
       extensions: ['.js', '.ts', '.styl'],
@@ -61,7 +61,7 @@ module.exports = (_, argv) => {
               loader: 'file-loader',
               options: {
                 limit: 8192,
-                name: '[name].[hash].[ext]',
+                name: '[name].[fullhash].[ext]',
                 outputPath: 'assets/image',
                 publicPath: `${assetPath}/image`,
               }
@@ -72,13 +72,13 @@ module.exports = (_, argv) => {
                 bypassOnDebug: isLocal,
                 mozjpeg: {
                   progressive: true,
-                  quality: 50
+                  quality: [0.65, 0.90]
                 },
                 optipng: {
                   enabled: false,
                 },
                 pngquant: {
-                  quality: 50,
+                  quality: [0.65, 0.90],
                   speed: 4
                 },
                 gifsicle: {
@@ -95,7 +95,7 @@ module.exports = (_, argv) => {
               loader: 'file-loader',
               options: {
                 limit: 8192,
-                name: '[name].[hash].[ext]',
+                name: '[name].[fullhash].[ext]',
                 outputPath: 'assets/font',
                 publicPath: `${assetPath}/font`,
               }
@@ -115,7 +115,7 @@ module.exports = (_, argv) => {
       ...pugWebpackPlugin(mode, context),
 
       new MiniCssExtractPlugin({
-        filename: 'css/style.[hash].css'
+        filename: 'css/style.[fullhash].css'
       })
     ],
 
