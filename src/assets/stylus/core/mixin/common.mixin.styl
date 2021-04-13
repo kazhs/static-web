@@ -31,8 +31,39 @@ bg-img($url, $bgSize=contain)
   background-size: $bgSize
 
 
+ellipsis($number=null)
+  overflow: hidden
+  text-overflow: ellipsis
+  // @stylint off
+  if !$number
+    white-space: nowrap
+
+  else
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical
+    -webkit-line-clamp: $number
+    display: -webkit-box
+    word-wrap: break-word
+  // @stylint on
+
+
+scrollable()
+  overflow: auto
+  scroll-behavior: smooth
+  scrollbar-width: none;
+  -webkit-overflow-scrolling:touch
+  -ms-overflow-style: none; /* IE、Edge用 */
+
+
 img-container($objectFit=contain)
   > picture > img
   > img
     object-fit: $objectFit
     size: 100%
+
+
+serialize-margin($space, $direction = 'right')
+  margin-{$direction}: $space
+
+  &:last-child
+    margin-{$direction}: 0

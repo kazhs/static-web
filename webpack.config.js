@@ -1,5 +1,7 @@
+
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const pugWebpackPlugin = require('./webpack/pug-webpack-plugin');
 const root = require('./config/helper').root;
@@ -12,13 +14,15 @@ module.exports = (_, argv) => {
   const isDev = mode === 'development';
   const isLocal = isDev && !argv.env;
   const devtool = isDev ? 'source-map' : false;
+  const target = isDev ? 'web' : ['web', 'es5'];
 
   return {
     mode,
+    target,
     devtool,
     entry: root('src', 'assets', 'ts', 'main.ts'),
     output: {
-      filename: 'script/[name].[fullhash].js',
+      filename: 'script/[name].[contenthash].js',
     },
     resolve: {
       extensions: ['.js', '.ts', '.styl'],
@@ -61,7 +65,7 @@ module.exports = (_, argv) => {
               loader: 'file-loader',
               options: {
                 limit: 8192,
-                name: '[name].[fullhash].[ext]',
+                name: '[name].[contenthash].[ext]',
                 outputPath: 'assets/image',
                 publicPath: `${assetPath}/image`,
               }
@@ -95,7 +99,7 @@ module.exports = (_, argv) => {
               loader: 'file-loader',
               options: {
                 limit: 8192,
-                name: '[name].[fullhash].[ext]',
+                name: '[name].[contenthash].[ext]',
                 outputPath: 'assets/font',
                 publicPath: `${assetPath}/font`,
               }
@@ -115,8 +119,12 @@ module.exports = (_, argv) => {
       ...pugWebpackPlugin(mode, context),
 
       new MiniCssExtractPlugin({
-        filename: 'css/style.[fullhash].css'
-      })
+        filename: 'css/style.[contenthash].css'
+      }),
+
+      // new CopyPlugin({
+      //   patterns: []
+      // }),
     ],
 
     performance: {
